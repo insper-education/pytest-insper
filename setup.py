@@ -4,16 +4,16 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pytest-devlife",
-    version="0.3.0",
+    name="pytest-insper",
+    version="0.1.0",
     author="Andrew Kurauchi",
     author_email="andrewTNK@insper.edu.br",
-    description="Pytest plugin for Insper Developer Life",
+    description="Pytest plugin for courses at Insper",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/insper-education/pytest-devlife",
+    url="https://github.com/insper-education/pytest-insper",
     project_urls={
-        "Bug Tracker": "https://github.com/insper-education/pytest-devlife/issues",
+        "Bug Tracker": "https://github.com/insper-education/pytest-insper/issues",
     },
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -25,11 +25,10 @@ setuptools.setup(
     python_requires=">=3.7",
     entry_points={
         'pytest11': [
-            'devlife = pytest_devlife',
+            'insper = pytest_insper',
         ],
     },
     install_requires=[
         'pytest',
-        'python-dotenv',
     ],
 )
