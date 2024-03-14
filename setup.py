@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pytest-insper",
-    version="0.1.0",
+    version="0.1.1",
     author="Andrew Kurauchi",
     author_email="andrewTNK@insper.edu.br",
     description="Pytest plugin for courses at Insper",
