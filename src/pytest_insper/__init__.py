@@ -62,7 +62,7 @@ def pytest_collection_modifyitems(session, config, items):
     items[:] = [item for sublist in sorted_items for item in sublist]
 
 
-@pytest.hookimpl(wrapper=True)
+@pytest.hookimpl(hookwrapper=True)
 def pytest_pyfunc_call(pyfuncitem):
     # Execute test
     res = yield
