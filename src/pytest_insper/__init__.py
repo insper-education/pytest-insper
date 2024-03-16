@@ -65,7 +65,7 @@ def pytest_collection_modifyitems(session, config, items):
 @pytest.hookimpl(hookwrapper=True)
 def pytest_pyfunc_call(pyfuncitem):
     # Execute test
-    res = yield
+    outcome = yield
 
     mark = pyfuncitem.get_closest_marker('dependency_level')
     if mark:
@@ -73,9 +73,17 @@ def pytest_pyfunc_call(pyfuncitem):
             level = mark.args[0]
         else:
             level = mark.kwargs.get('level', -1)
-        _dependency_level_tests.add_passed_test(level)
+        try:
+            res = outcome.get_result()
+            if res:
+                _dependency_level_tests.add_passed_test(level)
+        except:
+            pass
         
         if not _dependency_level_tests.dependencies_passed(level):
-            pytest.fail('The test passed, but some test from a previous level failed.')
+            try:
+                pytest.fail('The test passed, but some test from a previous level failed.')
+            except BaseException as e:
+                outcome.force_exception(e)
 
-    return res
+    return outcome
