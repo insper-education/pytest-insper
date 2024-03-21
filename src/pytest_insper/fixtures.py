@@ -21,6 +21,11 @@ def mock_input(monkeypatch):
     return setup_mock
 
 
+@pytest.fixture(autouse=True)
+def add_points_to_report(request, record_property):
+    record_property('max_points', request.node.max_points)
+
+
 @pytest.fixture
 def run_program(capsys):
     def runner(filename):

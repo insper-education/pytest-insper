@@ -31,14 +31,38 @@ def pytest_configure(config):
     """Register the "run" marker."""
 
     provided_by_pytest_insper = 'Provided by pytest-insper.'
+
+    # Add dependency_level marker
     config_line = (
         'dependency_level(level): specify the dependency level '
         'of the test. ' + provided_by_pytest_insper
     )
     config.addinivalue_line('markers', config_line)
 
+    # Add max_points marker
+    config_line = (
+        'max_points(max_pts): specify the maximum points awarded '
+        'by this test. ' + provided_by_pytest_insper
+    )
+    config.addinivalue_line('markers', config_line)
+
+
+def add_max_points(items):
+    for item in items:
+        mark = item.get_closest_marker('max_points')
+        if mark:
+            if len(mark.args) > 0:
+                max_points = mark.args[0]
+            else:
+                max_points = mark.kwargs.get('max_pts', 0)
+            item.max_points = max_points
+        else:
+            item.max_points = 1
+
 
 def pytest_collection_modifyitems(session, config, items):
+    add_max_points(items)
+
     grouped_items = {}
 
     for item in items:
@@ -55,9 +79,11 @@ def pytest_collection_modifyitems(session, config, items):
 
         grouped_items.setdefault(level, []).append(item)
 
-    sorted_items = [grouped_items.pop(None, [])]
+    items_without_level = grouped_items.pop(None, [])
+    sorted_items = []
     for key in sorted(grouped_items.keys()):
         sorted_items.append(grouped_items[key])
+    sorted_items.append(items_without_level)
 
     items[:] = [item for sublist in sorted_items for item in sublist]
 
