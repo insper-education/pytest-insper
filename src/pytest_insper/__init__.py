@@ -1,4 +1,5 @@
 from pytest_insper.fixtures import *
+from .version import __version__
 
 
 class DependencyLevelTests:

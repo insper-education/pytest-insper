@@ -1,4 +1,5 @@
 import pytest
+from pytest_insper.assertions import assert_code_quality
 
 
 def test_always_pass():
@@ -20,3 +21,9 @@ def test_level1():
 @pytest.mark.max_points(16)
 def test_other_level0(a, b, c):
     assert a + 1 == b and b + 1 == c
+
+
+def test_code_quality():
+    a = 10
+    a = a
+    assert_code_quality(['pltest.py'])
