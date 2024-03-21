@@ -1,5 +1,5 @@
 from pytest_insper.fixtures import *
-from .version import __version__
+__version__="0.1.4"
 
 
 class DependencyLevelTests:

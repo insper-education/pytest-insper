@@ -1,12 +1,11 @@
 import setuptools
-from src.pytest_insper.version import __version__
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="pytest-insper",
-    version=__version__,
+    version="0.1.4",
     author="Andrew Kurauchi",
     author_email="andrewTNK@insper.edu.br",
     description="Pytest plugin for courses at Insper",
